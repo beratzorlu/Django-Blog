@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+# EACH TIME A NEW VIEW IS CREATED DO THE FOLLOWING:
+# 1. CREATE THE VIEW CODE.
+# 2. CREATE A TEMPLATE TO RENDER THE VIEW.
+# 3. CONNECT UP URLs IN THE urls.py FILE.
