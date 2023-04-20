@@ -32,6 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['django-blog-bz.herokuapp.com', 'localhost']
 
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 # Application definition
 
