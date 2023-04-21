@@ -1,7 +1,13 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, reverse
 from django.views import generic, View
+from django.http import HttpResponseRedirect
 from .models import Post
 from .forms import CommentForm
+
+# EVERY TIME A VIEW IS CREATED TO THE FOLLOWING;
+# 1. CREATE THE VIEW CODE
+# 2. CREATE A TEMPLATE TO RENDER THE VIEW
+# 3. CONNECT UP URLs IN THE urls.py FILE
 
 
 class PostList(generic.ListView):
@@ -63,3 +69,18 @@ class PostDetail(View):
                 "comment_form": CommentForm()
             },
         )
+
+
+class PostLike(View):
+
+    def post(self, request, slug):
+        post = get_object_or_404(Post, slug=slug)  # get the Post object
+
+        if post.likes.filter(id=request.user.id).exists():  # check if liked already
+            post.likes.remove(request.user)  # if so, remove the like
+        else:
+            post.likes.add(request.user)  # if not, add a like
+
+        # when liking/unliking the page will reload
+        # args allows for targeting the correct post to load
+        return HttpResponseRedirect(reverse('post_detail', args=[slug]))  # reload the template to render changes

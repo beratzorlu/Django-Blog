@@ -11,4 +11,5 @@ urlpatterns = [
     # The path converter converts its text into a slug field.
     # Then, it tells Django to match any slug string.
     path('<slug:slug>/', views.PostDetail.as_view(), name='post_detail'),
+    path('like/<slug:slug>', views.PostLike.as_view(), name='post_like'),
 ]
